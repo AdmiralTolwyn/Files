@@ -1,0 +1,31 @@
+<job id="ZTIFlushVariables">
+    <script language="VBScript" src="..\..\Scripts\ZTIUtility.vbs"/>
+    <script language="VBScript">
+ 
+    ' Flush variables set via PowerShell to Variables.dat (workaround for bug in MDT 2013 Update 2)
+ 
+    Dim oTSEnv
+    Set oTSEnv = CreateObject("Microsoft.SMS.TSEnvironment")
+ 
+    Dim oVar
+        For Each oVar In oTSEnv.GetVariables
+ 
+        ' Only worry about variables that have a value
+        If oEnvironment.Item(oVar) <> "" Then
+ 
+            ' Log variable before flush
+            oLogging.CreateEntry "---------------------------------------------------------------------------", LogTypeInfo    
+            oLogging.CreateEntry "Before Flush: " & oVar & " variable from Variables.dat: " & oEnvironment.GetDat(oVar), LogTypeInfo    
+ 
+            ' Flush the variable
+            oEnvironment.Item(oVar) = oEnvironment.Item(oVar)
+ 
+            ' Log variable after flush
+            oLogging.CreateEntry "After Flush: " & oVar & " variable from Variables.dat: " & oEnvironment.GetDat(oVar), LogTypeInfo    
+ 
+        End if
+ 
+    Next
+ 
+    </script>
+</job>
