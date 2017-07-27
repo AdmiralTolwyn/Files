@@ -1,5 +1,5 @@
 <job id="ZTIFlushVariables">
-    <script language="VBScript" src="..\..\Scripts\ZTIUtility.vbs"/>
+    <script language="VBScript" src="..\Scripts\ZTIUtility.vbs"/>
     <script language="VBScript">
  
     ' Flush variables set via PowerShell to Variables.dat (workaround for bug in MDT 2013 Update 2)
