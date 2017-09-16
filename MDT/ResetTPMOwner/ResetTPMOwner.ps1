@@ -1,16 +1,23 @@
 ﻿<#
- 
-************************************************************************************************************************
- 
-Created:    2016-07-01
-Version:    1.0
- 
-Author:     Anton Romanyuk, Login Consultants Germany GmbH (C) 2016
+.Synopsis
+    TPM Clear
+.DESCRIPTION
+    Used to clear TPM ownership using Microsoft APIs
+.EXAMPLE
+    ResetTPMOwner.ps1
+.NOTES
+    Created:	 2017-09-16
+    Version:	 1.0
+    Author - Anton Romanyuk
+    Twitter: @admiraltolwyn
+    Blog   : http://www.vacuumbreather.com
+    Disclaimer:
+    This script is provided 'AS IS' with no warranties, confers no rights and 
+    is not supported by the author.
+.LINK
+    http://www.vacuumbreather.com
+.NOTES
 
-Purpose:    Used to clear TPM ownership using Microsoft APIs
- 
-************************************************************************************************************************
- 
 #>
 
 # Determine where to do the logging 
@@ -26,7 +33,6 @@ Write-Output "Logging to $logFile"
 Function ClearTPM {
     Write-Output "The TPM must be cleared before it can be used to help secure the computer."
     Write-Output "Clearing the TPM cancels the TPM ownership and resets it to factory defaults."
-    Write-Output "Clearing the TPM resets it to factory defaults. You will lose all created keys and any data protected only by those keys."
 
     Write-Output "Quering Win32_TPM WMI object..."	
     $oTPM = Get-WmiObject -Class "Win32_Tpm" -Namespace "ROOT\CIMV2\Security\MicrosoftTpm"
