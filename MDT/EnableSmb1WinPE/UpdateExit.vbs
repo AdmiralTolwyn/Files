@@ -15,7 +15,7 @@
 
 Option Explicit
 
-Dim oShell, oEnv
+Dim oShell, oEnv, sRole
 
 ' Write out each of the passed-in environment variable values
 
@@ -44,7 +44,8 @@ If oEnv("STAGE") = "WIM" then
 	' // 
 	' // Version:   1.0
 	' // 
-	' // Purpose:   Apply registry entries to Windows PE boot images.
+	' // Purpose:   Apply registry entries to and enable features in Windows PE boot
+	' //            images.
 	' // 
 	' //  ------------- DISCLAIMER -------------------------------------------------
 	' //  This script code is provided as is with no guarantee or waranty concerning
@@ -78,8 +79,6 @@ If oEnv("STAGE") = "WIM" then
 			iErrors = iErrors + 1
 		End if
 		
-		' This value enables SMB1 protocol
-		
 		sCmd = "Reg add " & Chr(34) & "HKLM\winpe\ControlSet001\Services\LanmanServer\Parameters" & Chr(34) & " /v SMB1 /t REG_DWORD /d 1 /f"
 		WScript.Echo "About to run command: " & sCmd
 		rc = oShell.Run(sCmd, 0, True)
@@ -99,8 +98,17 @@ If oEnv("STAGE") = "WIM" then
 			iErrors = iErrors + 1
 		End if
 
-		filetxt.Write(strLog)
-		filetxt.Close
+		For each sRole in Array("SMB1Protocol")
+			sCmd = "DISM.EXE /Image:""" & oEnv("CONTENT") & """ /enable-feature /featurename:" & sRole
+			WScript.Echo "About to run: " & sCmd
+			
+			RC = oShell.Run(sCmd, 0, true)
+			WScript.Echo "Return code from command = " & RC
+			
+			If RC > 0 then 
+				iErrors = iErrors + 1
+			End if
+		Next
 		
 	WScript.Quit iErrors
 	
