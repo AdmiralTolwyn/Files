@@ -98,10 +98,7 @@ If oEnv("STAGE") = "WIM" then
 		If RC > 0 then 
 			iErrors = iErrors + 1
 		End if
-
-		filetxt.Write(strLog)
-		filetxt.Close
-		
+			
 	WScript.Quit iErrors
 	
 End if
