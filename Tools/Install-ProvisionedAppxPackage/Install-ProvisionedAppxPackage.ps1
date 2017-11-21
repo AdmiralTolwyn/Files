@@ -21,7 +21,7 @@
 #>
 
 # Determine where to do the logging 
-$logPath = "C:\CLS\Log"
+$logPath = "C:\temp\Logs"
 $logFile = "$logPath\$($myInvocation.MyCommand).log"
 $ScriptName = $MyInvocation.MyCommand
 
@@ -41,7 +41,6 @@ Function Logit($TextBlock1){
 }
 
 # Start main code here
-
 . Logit "Make sure policy is set."
 Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Appx" -Name "AllowAllTrustedApps" -Value "1" -Force | Out-Null
 
