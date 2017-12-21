@@ -40,6 +40,27 @@ Function Logit($TextBlock1){
 	Write-Output $OutPut >> $logFile
 }
 
+# https://stackoverflow.com/questions/8761888/capturing-standard-out-and-error-with-start-process
+Function Execute-Command ($commandTitle, $commandPath, $commandArguments)
+{
+    $pinfo = New-Object System.Diagnostics.ProcessStartInfo
+    $pinfo.FileName = $commandPath
+    $pinfo.RedirectStandardError = $true
+    $pinfo.RedirectStandardOutput = $true
+    $pinfo.UseShellExecute = $false
+    $pinfo.Arguments = $commandArguments
+    $p = New-Object System.Diagnostics.Process
+    $p.StartInfo = $pinfo
+    $p.Start() | Out-Null
+    $p.WaitForExit()
+    [pscustomobject]@{
+        commandTitle = $commandTitle
+        stdout = $p.StandardOutput.ReadToEnd()
+        stderr = $p.StandardError.ReadToEnd()
+        ExitCode = $p.ExitCode  
+    }
+}
+
 # Start main code here
 . Logit "Make sure policy is set."
 Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Appx" -Name "AllowAllTrustedApps" -Value "1" -Force | Out-Null
