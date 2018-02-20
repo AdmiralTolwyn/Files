@@ -1,0 +1,28 @@
+﻿<Settings>
+  <TargetShare>C:\Virtual Machines\OVF</TargetShare>
+  <ConcurrentRunningVMs>2</ConcurrentRunningVMs>
+  <EnableFTP>False</EnableFTP>
+  <FTPServer>192.168.1.21</FTPServer>
+  <FTPUsername>ftpuser</FTPUsername>
+  <FTPPassword>password</FTPPassword>
+  <FTPPath>/OVF</FTPPath>
+  <NoGui>False</NoGui>
+  <EnableCleanup>False</EnableCleanup>
+ <MDT>
+  <DeploymentShare>\\mdt01\VMwareCapture$</DeploymentShare>
+  <Computername>MDT01</Computername>
+  <RefTaskSequenceFolderName>REF</RefTaskSequenceFolderName>
+  <SkipCapture>YES</SkipCapture>
+ </MDT>
+ <VMware>
+  <StartUpRAM>2</StartUpRAM>
+  <VMLocation>C:\Virtual Machines\vmxtoolkit</VMLocation>
+  <ISOLocation>C:\Virtual Machines\ISO</ISOLocation>
+  <VHDSize>60</VHDSize>
+  <NoCPU>2</NoCPU>
+  <ConnectionType>NAT</ConnectionType>
+  <AdapterType>vmxnet3</AdapterType>
+  <AdapterID>0</AdapterID>
+  <NumberOfMonitors>2</NumberOfMonitors>
+ </VMware>
+</Settings>
