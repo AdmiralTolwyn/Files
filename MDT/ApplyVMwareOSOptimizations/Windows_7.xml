@@ -1,0 +1,1876 @@
+<sequence name="My_Windows 7 (Horizon Cloud)" description="Default optimization template for Windows 7 (Horizon Air Hybrid)" author="" authorEmail="" website="" version="1.0" runOnOs="1" uid="986060">
+  <globalVarList>
+    <autoLogin>
+      <alUserName>Admin</alUserName>
+      <alPassword></alPassword>
+    </autoLogin>
+    <osCollection>
+      <osEntry osId="1" name="Windows 7">
+        <Version>6.1.*</Version>
+        <ProductType>1</ProductType>
+        <osEntry osId="2" name="Windows 7 32-bit">
+          <OSArchitecture>32-bit</OSArchitecture>
+        </osEntry>
+        <osEntry osId="3" name="Windows 7 64-bit">
+          <OSArchitecture>64-bit</OSArchitecture>
+        </osEntry>
+      </osEntry>
+      <osEntry osId="4" name="Windows 8">
+        <Version>6.2.*</Version>
+        <ProductType>1</ProductType>
+        <osEntry osId="5" name="Windows 8 32-bit">
+          <OSArchitecture>32-bit</OSArchitecture>
+        </osEntry>
+        <osEntry osId="6" name="Windows 8 64-bit">
+          <OSArchitecture>64-bit</OSArchitecture>
+        </osEntry>
+      </osEntry>
+      <osEntry osId="13" name="Windows 8.1">
+        <Version>6.3.*</Version>
+        <ProductType>1</ProductType>
+        <osEntry osId="14" name="Windows 8.1 32-bit">
+          <OSArchitecture>32-bit</OSArchitecture>
+        </osEntry>
+        <osEntry osId="15" name="Windows 8.1 64-bit">
+          <OSArchitecture>64-bit</OSArchitecture>
+        </osEntry>
+      </osEntry>
+      <osEntry osId="16" name="Windows 10">
+        <Version>10.0.*</Version>
+        <ProductType>1</ProductType>
+        <osEntry osId="17" name="Windows 10 32-bit">
+          <OSArchitecture>32-bit</OSArchitecture>
+        </osEntry>
+        <osEntry osId="18" name="Windows 10 64-bit">
+          <OSArchitecture>64-bit</OSArchitecture>
+        </osEntry>
+      </osEntry>
+      <osEntry osId="10" name="Windows Server 2008">
+        <Version>6.0.*</Version>
+        <ProductType>3</ProductType>
+        <osEntry osId="11" name="Windows Server 2008 32-bit">
+          <OSArchitecture>32-bit</OSArchitecture>
+        </osEntry>
+        <osEntry osId="12" name="Windows Server 2008 64-bit">
+          <OSArchitecture>64-bit</OSArchitecture>
+        </osEntry>
+      </osEntry>
+      <osEntry osId="7" name="Windows Server 2008 R2">
+        <Version>6.1.*</Version>
+        <ProductType>3</ProductType>
+        <osEntry osId="8" name="Windows Server 2008 R2 32-bit">
+          <OSArchitecture>32-bit</OSArchitecture>
+        </osEntry>
+        <osEntry osId="9" name="Windows Server 2008 R2 64-bit">
+          <OSArchitecture>64-bit</OSArchitecture>
+        </osEntry>
+      </osEntry>
+      <osEntry osId="19" name="Windows Server 2012">
+        <Version>6.0.*</Version>
+        <ProductType>3</ProductType>
+        <osEntry osId="20" name="Windows Server 2012 32-bit">
+          <OSArchitecture>32-bit</OSArchitecture>
+        </osEntry>
+        <osEntry osId="21" name="Windows Server 2012 64-bit">
+          <OSArchitecture>64-bit</OSArchitecture>
+        </osEntry>
+      </osEntry>
+      <osEntry osId="22" name="Windows Server 2012 R2">
+        <Version>6.1.*</Version>
+        <ProductType>3</ProductType>
+        <osEntry osId="23" name="Windows Server 2012 R2 32-bit">
+          <OSArchitecture>32-bit</OSArchitecture>
+        </osEntry>
+        <osEntry osId="24" name="Windows Server 2012 R2 64-bit">
+          <OSArchitecture>64-bit</OSArchitecture>
+        </osEntry>
+      </osEntry>
+    </osCollection>
+  </globalVarList>
+  <changeLog>
+    <log version="5.4">Template update: Add item "VMware Horizon DaaS Agent Desktop Manager Address" to show Desktop Manager Address for DaaS Agent</log>
+    <log version="5.3">Template update: Add group "Validate Horizon Cloud Configuration" to only check some configuration for Horizon Cloud</log>
+    <log version="5.2">Template update: Add items "Disable Hardware Acceleration (GPU Rendering) for Microsoft Internet Explorer", "Disable Hardware Acceleration (GPU Rendering) for Microsoft Office 2010"
+"Disable Hardware Acceleration (GPU Rendering) for Microsoft Office 2016/2013" to disable hardware acceleration if there's no hardware GPU.</log>
+  </changeLog>
+  <group name="Validate Horizon Cloud Configuration" description="Horizon Cloud Configuration Validate">
+    <step name="Disk count" description="Only one hard drive installed" category="recommended" defaultSelected="true">
+      <action>
+        <type>Custom Check</type>
+        <target>Disk Count</target>
+        <params>
+          <noGreater>1</noGreater>
+        </params>
+      </action>
+    </step>
+    <step name="Disk space" description="30GB size (can be increased later but not decreased）" category="recommended" defaultSelected="true">
+      <action>
+        <type>Custom Check</type>
+        <target>Disk Space</target>
+        <params>
+          <noLess>30</noLess>
+        </params>
+      </action>
+    </step>
+    <step name="Desktop Windows Manager Session Manager Sevice" description="Show Desktop Windows Manager Session Manager Sevice start mode and state" category="recommended" defaultSelected="true">
+      <action messageOnly="True">
+        <type>Service</type>
+        <params>
+          <serviceName>UxSms</serviceName>
+          <startMode>AUTO</startMode>
+        </params>
+      </action>
+    </step>
+    <step name="VMware DaaS Agent Service" description="Show VMware Daas Agent Sevice start mode and state" category="recommended" defaultSelected="true">
+      <action messageOnly="True">
+        <type>Service</type>
+        <params>
+          <serviceName>DaaS Agent</serviceName>
+          <startMode>AUTO</startMode>
+        </params>
+      </action>
+    </step>
+    <step name="VMware Blast Service" description="Show VMware Blast Service start mode and state" category="recommended" defaultSelected="true">
+      <action messageOnly="True">
+        <type>Service</type>
+        <params>
+          <serviceName>VMBlast</serviceName>
+          <startMode>AUTO</startMode>
+        </params>
+      </action>
+    </step>
+    <step name="VMware Horizon View Agent Service" description="Show VMware Horizon View Agent Sevice start mode and state" category="recommended" defaultSelected="true">
+      <action messageOnly="True">
+        <type>Service</type>
+        <params>
+          <serviceName>WSNM</serviceName>
+          <startMode>AUTO</startMode>
+        </params>
+      </action>
+    </step>
+    <step name="Windows Firewall Service" description="Show Windows Firewall Service start mode and state" category="recommended" defaultSelected="true">
+      <action messageOnly="True">
+        <type>Service</type>
+        <params>
+          <serviceName>MpsSvc</serviceName>
+          <startMode>AUTO</startMode>
+        </params>
+      </action>
+    </step>
+    <step name="VMware Horizon DaaS Agent" description="Show VMware Horizon DaaS Agent version" category="recommended" defaultSelected="true">
+      <action>
+        <type>Custom Check</type>
+        <target>Installed Program</target>
+        <params>
+          <programName>VMware Horizon DaaS Agent</programName>
+        </params>
+      </action>
+    </step>
+    <step name="VMware Horizon DaaS Agent Desktop Manager Address" description="Show VMware Horizon DaaS Agent Desktop Manager Address from Registry" category="recommended" defaultSelected="true">
+      <action messageOnly="True">
+        <type>Registry</type>
+        <params>
+          <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\VMware, Inc.\VMware DaaS Agent</keyName>
+          <valueName>DesktopMgrAddresses</valueName>
+          <type>REG_SZ</type>
+          <data></data>
+        </params>
+      </action>
+    </step>
+    <step name="VMware Horizon DaaS Health Agent" description="Show Horizon DaaS Health Agent version" category="recommended" defaultSelected="true">
+      <action>
+        <type>Custom Check</type>
+        <target>Installed Program</target>
+        <params>
+          <programName>VMware Horizon Air Health Agent</programName>
+        </params>
+      </action>
+    </step>
+    <step name="VMware Horizon Agent" description="Show VMware Horizon Agent version" category="recommended" defaultSelected="true">
+      <action>
+        <type>Custom Check</type>
+        <target>Installed Program</target>
+        <params>
+          <programName>VMware Horizon Agent</programName>
+        </params>
+      </action>
+    </step>
+    <step name="VMware Tools" description="Show VMware Tools version" category="recommended" defaultSelected="true">
+      <action>
+        <type>Custom Check</type>
+        <target>Installed Program</target>
+        <params>
+          <programName>VMware Tools</programName>
+        </params>
+      </action>
+    </step>
+    <step name="VMware User Environment Manager" description="Show VMware User Environment Manager version" category="recommended" defaultSelected="true">
+      <action>
+        <type>Custom Check</type>
+        <target>Installed Program</target>
+        <params>
+          <programName>VMware User Environment Manager</programName>
+        </params>
+      </action>
+    </step>
+  </group>
+  <group name="Modifications to Standard Image" description="Select &quot;Disable&quot; in the Options tab of any Task to bypass processing.  Disable this entire section in the same manner.">
+    <group name="Apply HKCU Settings to Registry" description="Apply HKCU Settings to Registry">
+      <step name="Load HKCU for editing" description="Open HKey Users (Default User Profile) for Editing" category="mandatory">
+        <action optimization="true">
+          <!--reg load "hku\temp" "%USERPROFILE%\..\Default User\NTUSER.DAT" -->
+          <type>Registry</type>
+          <command>LOAD</command>
+          <params>
+            <keyName>hku\temp</keyName>
+            <fileName>%USERPROFILE%\..\Default User\NTUSER.DAT</fileName>
+          </params>
+        </action>
+      </step>
+      <step name="Default Screen Saver" description="Set the default screen saver to &quot;Blank&quot; - any graphics screensaver will put extra load on the virtual infrastructure." category="recommended" defaultSelected="true">
+        <action>
+          <!--reg ADD "hku\temp\Software\Policies\Microsoft\Windows\Control Panel\Desktop" /v SCRNSAVE.EXE /d "%windir%\system32\scrnsave.scr" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Software\Policies\Microsoft\Windows\Control Panel\Desktop</keyName>
+            <valueName>SCRNSAVE.EXE</valueName>
+            <type>REG_SZ</type>
+            <data>%windir%\system32\scrnsave.scr</data>
+          </params>
+        </action>
+      </step>
+      <step name="Disable Hardware Acceleration (GPU Rendering) for Microsoft Internet Explorer" description="Disable Hardware Acceleration (GPU Rendering) for Microsoft Internet Explorer if there's no hardware GPU" category="recommended" defaultSelected="true">
+        <action>
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Software\Microsoft\Internet Explorer\Main</keyName>
+            <valueName>UseSWRender</valueName>
+            <type>REG_DWORD</type>
+            <data>1</data>
+          </params>
+        </action>
+        <conditions>
+          <condition>
+            <type>WMI query</type>
+            <query>SELECT Name FROM Win32_DisplayControllerConfiguration WHERE Not Name = 'VMware SVGA 3D' </query>
+            <operator>Result is Empty</operator>
+          </condition>
+        </conditions>
+      </step>
+      <step name="Disable Hardware Acceleration (GPU Rendering) for Microsoft Office 2010" description="Disable Hardware Acceleration (GPU Rendering) for Microsoft Office 2010 if there's no hardware GPU" category="recommended" defaultSelected="true">
+        <action>
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Software\Microsoft\Office\14.0\Gfx</keyName>
+            <valueName>DisableHardware</valueName>
+            <type>REG_DWORD</type>
+            <data>1</data>
+          </params>
+        </action>
+        <conditions>
+          <condition>
+            <type>WMI query</type>
+            <query>SELECT Name FROM Win32_DisplayControllerConfiguration WHERE Not Name = 'VMware SVGA 3D' </query>
+            <operator>Result is Empty</operator>
+          </condition>
+        </conditions>
+      </step>
+      <step name="Disable Hardware Acceleration (GPU Rendering) for Microsoft Office 2016/2013" description="Disable Hardware Acceleration (GPU Rendering) for Microsoft Office 2016/2013 if there's no hardware GPU" category="recommended" defaultSelected="true">
+        <action>
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Software\Microsoft\Office\15.0\Common\Graphics</keyName>
+            <valueName>DisableHardwareAcceleration</valueName>
+            <type>REG_DWORD</type>
+            <data>1</data>
+          </params>
+        </action>
+        <conditions>
+          <condition>
+            <type>WMI query</type>
+            <query>SELECT Name FROM Win32_DisplayControllerConfiguration WHERE Not Name = 'VMware SVGA 3D' </query>
+            <operator>Result is Empty</operator>
+          </condition>
+        </conditions>
+      </step>
+      <step name="Screen Saver" description="Set the Screen Saver to None" category="mandatory" defaultSelected="true">
+        <action>
+          <!-- reg ADD "hku\temp\Control Panel\Desktop" /v ScreenSaverIsSecure /d "0" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Control Panel\Desktop</keyName>
+            <valueName>ScreenSaverIsSecure</valueName>
+            <type>REG_SZ</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Set Default Wallpaper" description="Set wallpaper to a &quot;non existing&quot; file to disable the end users ability to set a wallpaper." category="optional" defaultSelected="false">
+        <action>
+          <!-- reg ADD "hku\temp\Software\Microsoft\Windows\CurrentVersion\Policies\System" /v Wallpaper /d " " /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Software\Microsoft\Windows\CurrentVersion\Policies\System</keyName>
+            <valueName>Wallpaper</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Visual Effects - Adjust for best performance" description="Set Windows Visual Effects to Optimized for best performance." category="optional" defaultSelected="true">
+        <action>
+          <!-- reg ADD "hku\temp\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v VisualFXSetting /t REG_DWORD /d 0x2 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects</keyName>
+            <valueName>VisualFXSetting</valueName>
+            <type>REG_DWORD</type>
+            <data>2</data>
+          </params>
+        </action>
+      </step>
+      <step name="Visual Effects - Animate windows when minimizing and maxmizing" description="Disable Animate windows when minimizing and maxmizing Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "hku\temp\Control Panel\Desktop\WindowMetrics" /v MinAnimate /t REG_SZ /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Control Panel\Desktop\WindowMetrics</keyName>
+            <valueName>MinAnimate</valueName>
+            <type>REG_SZ</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Visual Effects - Animations in the taskbar" description="Disable Animations in the taskbar Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "hku\temp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarAnimations /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced</keyName>
+            <valueName>TaskbarAnimations</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Visual Effects - Enable Peek" description="Disable Enable Peek Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "hku\temp\SOFTWARE\Microsoft\Windows\DWM" /v EnableAeroPeek /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\SOFTWARE\Microsoft\Windows\DWM</keyName>
+            <valueName>EnableAeroPeek</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Visual Effects - Play animations in windows" description="Turn off Play animations in windows." category="optional" defaultSelected="true">
+        <action>
+          <!-- reg ADD "hku\temp\Control Panel\Desktop" /v UserPreferencesMask /t REG_BINARY /d 9012038010000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Control Panel\Desktop</keyName>
+            <valueName>UserPreferencesMask</valueName>
+            <type>REG_BINARY</type>
+            <data>9012038010000000</data>
+          </params>
+        </action>
+      </step>
+      <step name="Visual Effects - Save taskbar thumbnail previews" description="Disable Save taskbar thumbnail previews Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "hku\temp\SOFTWARE\Microsoft\Windows\DWM" /v AlwaysHibernateThumbnails /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\SOFTWARE\Microsoft\Windows\DWM</keyName>
+            <valueName>AlwaysHibernateThumbnails</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Visual Effects - Show translucent selection rectangle" description="Disable Show translucent selection rectangle Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "hku\temp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v ListviewAlphaSelect /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced</keyName>
+            <valueName>ListviewAlphaSelect</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Visual Effects - Show window contents while dragging" description="Disable Show window contents while dragging Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "hku\temp\Control Panel\Desktop" /v DragFullWindows /t REG_SZ /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Control Panel\Desktop</keyName>
+            <valueName>DragFullWindows</valueName>
+            <type>REG_SZ</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Visual Effects - Smooth edges of screen fonts" description="Disable Smooth edges of screen fonts Visual Effect" category="optional" defaultSelected="false">
+        <action>
+          <!-- reg add "hku\temp\Control Panel\Desktop" /v FontSmoothing /t REG_SZ /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\Control Panel\Desktop</keyName>
+            <valueName>FontSmoothing</valueName>
+            <type>REG_SZ</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Visual Effects - Use drop shadows for icon labels on the desktop" description="Disable Use drop shadows for icon labels on the desktop Visual Effect" category="optional" defaultSelected="false">
+        <action>
+          <!-- reg add "hku\temp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v ListviewShadow /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>hku\temp\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced</keyName>
+            <valueName>ListviewShadow</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Unload HKCU for editing" description="Very Important Step!  Need to close the ntuser.dat file to save changes." category="mandatory" defaultSelected="true">
+        <action>
+          <!-- reg unload "hku\temp" -->
+          <type>Registry</type>
+          <command>UNLOAD</command>
+          <params>
+            <keyName>hku\temp</keyName>
+          </params>
+        </action>
+      </step>
+    </group>
+    <group name="Apply HKLM Settings" description="Apply HKLM Settings">
+      <step name="Action Center Icon - Disable " description="The Action Center Icon notifies the user of the firewall, anti virus, security related things, etc. that may be configured differently than expected.  Disabling this service can be useful to avoid end user confusion." category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v HideSCAHealth /t REG_DWORD /d 0x1 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer</keyName>
+            <valueName>HideSCAHealth</valueName>
+            <type>REG_DWORD</type>
+            <data>1</data>
+          </params>
+        </action>
+      </step>
+      <step name="Customer Experience Improvement Program" description="Turn off the Windows Customer Experience Improvement Program" category="recommended" defaultSelected="true">
+        <action>
+          <!-- Reg ADD "HKLM\Software\Microsoft\SQMClient\Windows" /v CEIPEnable /t REG_DWORD /d 0 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKLM\Software\Microsoft\SQMClient\Windows</keyName>
+            <valueName>CEIPEnable</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Disk Timeout Value" description="How long the OS will wait for a disk write or read to take place on the SAN without throwing an error" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\Disk" /v TimeOutValue /t REG_DWORD /d 190 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\Disk</keyName>
+            <valueName>TimeOutValue</valueName>
+            <type>REG_DWORD</type>
+            <data>190</data>
+          </params>
+        </action>
+      </step>
+      <step name="Superfetch (Registry) - Disable" description="Set Superfetch to boot files only." category="recommended" defaultSelected="true">
+        <action>
+          <!--reg ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v EnableSuperfetch /t REG_DWORD /d 0x0 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters</keyName>
+            <valueName>EnableSuperfetch</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="System Restore - Disable" description="Disable System Restore.  System Restore provides rollback capability that should not be leveraged in a VDI environment.  Space and reliability are factors." category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore" /v DisableSR /t REG_DWORD /d 0x1 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\SystemRestore</keyName>
+            <valueName>DisableSR</valueName>
+            <type>REG_DWORD</type>
+            <data>1</data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Update - Disable" description="Disable Automatic Update - important for non persistent VMs" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 0x1 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU</keyName>
+            <valueName>NoAutoUpdate</valueName>
+            <type>REG_DWORD</type>
+            <data>1</data>
+          </params>
+        </action>
+      </step>
+    </group>
+    <group name="Apply Visual Effect Settings To Current User" description="Setting visual effects for current user">
+      <step name="Adjust for best performance" description="Set Windows Visual Effects to Optimized for best performance." category="optional" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /v VisualFXSetting /t REG_DWORD /d 0x2 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects</keyName>
+            <valueName>VisualFXSetting</valueName>
+            <type>REG_DWORD</type>
+            <data>2</data>
+          </params>
+        </action>
+      </step>
+      <step name="Animate windows when minimizing and maxmizing" description="Disable Animate windows when minimizing and maxmizing Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKCU\Control Panel\Desktop\WindowMetrics" /v MinAnimate /t REG_SZ /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKCU\Control Panel\Desktop\WindowMetrics</keyName>
+            <valueName>MinAnimate</valueName>
+            <type>REG_SZ</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Animations in the taskbar" description="Disable Animations in the taskbar Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarAnimations /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced</keyName>
+            <valueName>TaskbarAnimations</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Enable Peek" description="Disable Enable Peek Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKCU\SOFTWARE\Microsoft\Windows\DWM" /v EnableAeroPeek /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKCU\SOFTWARE\Microsoft\Windows\DWM</keyName>
+            <valueName>EnableAeroPeek</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Play animations in windows" description="Turn off Play animations in windows." category="optional" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKCU\Control Panel\Desktop" /v UserPreferencesMask /t REG_BINARY /d 9012038010000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKCU\Control Panel\Desktop</keyName>
+            <valueName>UserPreferencesMask</valueName>
+            <type>REG_BINARY</type>
+            <data>9012038010000000</data>
+          </params>
+        </action>
+      </step>
+      <step name="Save taskbar thumbnail previews" description="Disable Save taskbar thumbnail previews Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKCU\SOFTWARE\Microsoft\Windows\DWM" /v AlwaysHibernateThumbnails /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKCU\SOFTWARE\Microsoft\Windows\DWM</keyName>
+            <valueName>AlwaysHibernateThumbnails</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Show translucent selection rectangle" description="Disable Show translucent selection rectangle Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v ListviewAlphaSelect /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced</keyName>
+            <valueName>ListviewAlphaSelect</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Show window contents while dragging" description="Disable Show window contents while dragging Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKCU\Control Panel\Desktop" /v DragFullWindows /t REG_SZ /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKCU\Control Panel\Desktop</keyName>
+            <valueName>DragFullWindows</valueName>
+            <type>REG_SZ</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Smooth edges of screen fonts" description="Disable Smooth edges of screen fonts Visual Effect" category="optional" defaultSelected="false">
+        <action>
+          <!-- reg add "HKCU\Control Panel\Desktop" /v FontSmoothing /t REG_SZ /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKCU\Control Panel\Desktop</keyName>
+            <valueName>FontSmoothing</valueName>
+            <type>REG_SZ</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Use drop shadows for icon labels on the desktop" description="Disable Use drop shadows for icon labels on the desktop Visual Effect" category="optional" defaultSelected="false">
+        <action>
+          <!-- reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v ListviewShadow /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced</keyName>
+            <valueName>ListviewShadow</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+    </group>
+    <group name="Apply Visual Effect Settings To New Users" description="This is a functional operation. This option must be selected so visual effect setting can be applied to new users.">
+      <step name="Animate windows when minimizing and maxmizing" description="Disable Animate windows when minimizing and maxmizing Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax" /v DefaultValue /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax</keyName>
+            <valueName>DefaultValue</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Animations in the taskbar" description="Disable Animations in the taskbar Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TaskbarAnimations" /v DefaultValue /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TaskbarAnimations</keyName>
+            <valueName>DefaultValue</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Enable Peek" description="Disable Enable Peek Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMAeroPeekEnabled" /v DefaultValue /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMAeroPeekEnabled</keyName>
+            <valueName>DefaultValue</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Save taskbar thumbnail previews" description="Disable Save taskbar thumbnail previews Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMSaveThumbnailEnabled" /v DefaultValue /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DWMSaveThumbnailEnabled</keyName>
+            <valueName>DefaultValue</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Show translucent selection rectangle" description="Disable Show translucent selection rectangle Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewAlphaSelect" /v DefaultValue /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewAlphaSelect</keyName>
+            <valueName>DefaultValue</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Show window contents while dragging" description="Disable Show window contents while dragging Visual Effect" category="optional" defaultSelected="true">
+        <action>
+          <!-- reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DragFullWindows" /v DefaultValue /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DragFullWindows</keyName>
+            <valueName>DefaultValue</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+      <step name="Smooth edges of screen fonts" description="Disable Smooth edges of screen fonts Visual Effect" category="optional" defaultSelected="false">
+        <action>
+          <!-- reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\FontSmoothing" /v DefaultValue /t REG_DWORD /d 0x00000001 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\FontSmoothing</keyName>
+            <valueName>DefaultValue</valueName>
+            <type>REG_DWORD</type>
+            <data>1</data>
+          </params>
+        </action>
+      </step>
+      <step name="Use drop shadows for icon labels on the desktop" description="Disable Use drop shadows for icon labels on the desktop Visual Effect" category="optional" defaultSelected="false">
+        <action>
+          <!-- reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewShadow" /v DefaultValue /t REG_DWORD /d 0x00000000 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewShadow</keyName>
+            <valueName>DefaultValue</valueName>
+            <type>REG_DWORD</type>
+            <data>0</data>
+          </params>
+        </action>
+      </step>
+    </group>
+    <group name="Disable Features" description="Disable Features">
+      <step name="Delete All Event Logs" description="Delete all event logs." category="recommended" defaultSelected="true">
+        <action>
+          <type>ShellExecute</type>
+          <command>cmd /C for /f %i in ('wevtutil el') do wevtutil cl "%i"</command>
+        </action>
+      </step>
+      <step name="Delete Restore Points for System Restore" description="Removes all restore points if they exist" category="recommended" defaultSelected="true">
+        <action>
+          <type>ShellExecute</type>
+          <command>vssadmin delete shadows /All /Quiet</command>
+        </action>
+      </step>
+      <step name="Delete Uninstall Folders" description="Delete any hidden uninstall folders on C:\Windows, such as $NtUninstallKB893756$." category="recommended" defaultSelected="true">
+        <action>
+          <type>ShellExecute</type>
+          <command>cmd /C for /d %i in (%windir%\$NtUninstall*) do rd %i /s /q</command>
+        </action>
+      </step>
+      <step name="Disk Defragmenter" description="Run Disk Defragmenter to rearrange fragmented data" category="recommended" defaultSelected="true">
+        <action>
+          <type>ShellExecute</type>
+          <command>defrag /C /H /M</command>
+        </action>
+      </step>
+      <step name="Hibernation for Power Config" description="Disable Hibernation for Power Config" category="recommended" defaultSelected="true">
+        <action>
+          <type>ShellExecute</type>
+          <command>powercfg -H OFF</command>
+        </action>
+      </step>
+      <step name="Indexing Service" description="Indexing improves searches by cataloging files. Do not disable this feature for users who search often." category="recommended" defaultSelected="true">
+        <action>
+          <!-- ShellExecute Powershell Dism /online /Disable-Feature /FeatureName:Indexing-Service-Package\ -->
+          <type>ShellExecute</type>
+          <command>Powershell C:\Windows\System32\Dism.exe /Online /Disable-Feature /FeatureName:Indexing-Service-Package</command>
+        </action>
+      </step>
+      <step name="Last Access Timestamp" description="Disable Last Access Timestamp" category="recommended" defaultSelected="true">
+        <action>
+          <type>ShellExecute</type>
+          <command>fsutil behavior set DisableLastAccess 1</command>
+        </action>
+      </step>
+      <step name="Microsoft Feeds Synchronization" description="Disable Microsoft Feeds Synchronization" category="recommended" defaultSelected="true">
+        <action>
+          <type>ShellExecute</type>
+          <command>msfeedssync disable</command>
+        </action>
+      </step>
+      <step name="Superfetch Service" description="Stop Superfetch Service" category="recommended" defaultSelected="true">
+        <action>
+          <type>ShellExecute</type>
+          <command>net stop "sysmain"</command>
+        </action>
+      </step>
+      <step name="System Protection" description="Turn off system protection on C:\." category="recommended" defaultSelected="true">
+        <action>
+          <type>ShellExecute</type>
+          <command>Powershell disable-computerrestore -drive c:\</command>
+        </action>
+      </step>
+      <step name="Tablet PC Components" description="Uninstall Tablet PC Components, unless you need this feature." category="optional" defaultSelected="true">
+        <action>
+          <!-- ShellExecute Powershell Dism /online /Disable-Feature /FeatureName:TabletPCOC\ -->
+          <type>ShellExecute</type>
+          <command>Powershell C:\Windows\System32\Dism.exe /Online /Disable-Feature /FeatureName:TabletPCOC</command>
+        </action>
+      </step>
+    </group>
+    <group name="Disable Scheduled Tasks" description="Disable Scheduled Tasks">
+      <step name="Application Experience - AitAgent" description="Disable Application Experience - AitAgent" category="recommended" defaultSelected="true">
+        <action>
+          <!-- schtasks /change /tn "Microsoft\windows\Application Experience\AitAgent" /disable -->
+          <type>SchTasks</type>
+          <params>
+            <taskName>Microsoft\Windows\Application Experience\AitAgent</taskName>
+            <status>DISABLED</status>
+          </params>
+        </action>
+      </step>
+      <step name="Autochk - Proxy" description="Disable Autochk - Proxy" category="recommended" defaultSelected="true">
+        <action>
+          <!-- schtasks /change /tn "Microsoft\Windows\Autochk\Proxy" /disable -->
+          <type>SchTasks</type>
+          <params>
+            <taskName>Microsoft\Windows\Autochk\Proxy</taskName>
+            <status>DISABLED</status>
+          </params>
+        </action>
+      </step>
+      <step name="Automatic Computer Maintenance" description="Turn off automatic computer maintenance" category="recommended" defaultSelected="true">
+        <action>
+          <!-- schtasks /change /tn "Microsoft\Windows\Diagnosis\Scheduled" /disable -->
+          <type>SchTasks</type>
+          <params>
+            <taskName>Microsoft\Windows\Diagnosis\Scheduled</taskName>
+            <status>DISABLED</status>
+          </params>
+        </action>
+      </step>
+      <step name="Registry Idle Backup Task" description="Disable Registry Idle Backup Task" category="recommended" defaultSelected="true">
+        <action>
+          <!-- schtasks /change /TN "\Microsoft\Windows\Registry\RegIdleBackup" /Disable -->
+          <type>SchTasks</type>
+          <params>
+            <taskName>Microsoft\Windows\Registry\RegIdleBackup</taskName>
+            <status>DISABLED</status>
+          </params>
+        </action>
+      </step>
+      <step name="Scheduled Disk Defragmentation" description="Disable Disk Defragmentation Schedule" category="recommended" defaultSelected="true">
+        <action>
+          <!-- schtasks /change /TN "\Microsoft\Windows\Defrag\ScheduledDefrag" /Disable -->
+          <type>SchTasks</type>
+          <params>
+            <taskName>Microsoft\Windows\Defrag\ScheduledDefrag</taskName>
+            <status>DISABLED</status>
+          </params>
+        </action>
+      </step>
+      <step name="System Restore Schedule" description="Disable System Restore Schedule" category="recommended" defaultSelected="true">
+        <action>
+          <!-- schtasks /change /TN "\Microsoft\Windows\SystemRestore\SR" /Disable -->
+          <type>SchTasks</type>
+          <params>
+            <taskName>Microsoft\Windows\SystemRestore\SR</taskName>
+            <status>DISABLED</status>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Defender Idle Task" description="Disable Windows Defender Idle Task" category="recommended" defaultSelected="true">
+        <action>
+          <!-- schtasks /change /TN "\Microsoft\Windows Defender\MPIdleTask" /Disable -->
+          <type>SchTasks</type>
+          <params>
+            <taskName>Microsoft\Windows Defender\MPIdleTask</taskName>
+            <status>DISABLED</status>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Defender Schedule" description="Disable Windows Defender Schedule" category="recommended" defaultSelected="true">
+        <action>
+          <!-- schtasks /change /TN "\Microsoft\Windows Defender\MP Scheduled Scan" /Disable -->
+          <type>SchTasks</type>
+          <params>
+            <taskName>Microsoft\Windows Defender\MP Scheduled Scan</taskName>
+            <status>DISABLED</status>
+          </params>
+        </action>
+      </step>
+    </group>
+    <group name="Disable Services" description="Disable Services">
+      <step name="Background Intelligent Transfer Service" description="Transfers files in the background using idle network bandwidth. If the service is disabled, Windows Update and MSN Explorer cannot automatically download programs and other information." category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'bits' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>bits</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Bitlocker Drive Encryption Service" description="Bitlocker service for drive encryption. Not recommended to encrypt VDI virtual machines." category="recommended" defaultSelected="true">
+        <action>
+          <type>Service</type>
+          <params>
+            <serviceName>BDESVC</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Block Level Backup Engine Service" description="Used by Windows Backup" category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'wbengine' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>wbengine</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="BranchCache" description="Used for caching files on server in a branch office." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'PeerDistSvc' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>PeerDistSvc</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Change Group Policy Client start mode to automatic" description="Responsible for applying settings configured by administrator for the computer and users through the Group Policy component." category="recommended">
+        <action>
+          <!-- Powershell Set-Service 'gpsvc' -startuptype "manual" -->
+          <type>Service</type>
+          <params>
+            <serviceName>gpsvc</serviceName>
+            <startMode>AUTO</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Computer Browser" description="Used for browsing computers on the same network." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'Browser' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>Browser</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Desktop Window Manager Session Manager" description="Used for Aero - disable if Aero is not desired.  (VMware product compatibility: Do not disable if View 5.3 package will be installed.)" category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'UxSms' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>UxSms</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Diagnostic Policy Service" description="Disable Diagnostic Policy Service" category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'DPS' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>DPS</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Diagnostic Service Host" description="Problem detection and troubleshooting resolution." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'WdiServiceHost' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>WdiServiceHost</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Diagnostic System Host" description="Problem detection and troubleshooting resolution." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'WdiSystemHost' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>WdiSystemHost</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Disk Defragmenter Service" description="Defrag can create unnessary overhead on a virtual machine - the scheduled defrag has been set to disable below as well as disabling this service." category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'Defragsvc' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>Defragsvc</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Function Discovery Provider Host" description="The FDPHOST service hosts the Function Discovery (FD) network discovery providers. These FD providers supply network discovery services for the Simple Services Discovery Protocol (SSDP) and Web Services - Discovery (WS-D) protocol." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'fdPHost' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>fdPHost</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Function Discovery Resource Publication" description="Publishes his computer and resources attached to this computer so they can be discovered over the network." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'FDResPub' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>FDResPub</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="HomeGroup Listener" description="Used for Homegroup services - N/A for VDI" category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'HomeGroupListener' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>HomeGroupListener</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="HomeGroup Provider" description="Used for Homegroup services - N/A for VDI" category="mandatory" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'HomeGroupProvider' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>HomeGroupProvider</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Interactive Services Detection" description="Displays a dialog box when a service tries to send a message to the console." category="recommended" defaultSelected="true">
+        <action>
+          <type>Service</type>
+          <params>
+            <serviceName>UI0Detect</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="IP Helper" description="Disable if IPv6 is not a factor in VDI" category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'iphlpsvc' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>iphlpsvc</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Media Center Extender" description="Allows Media Center Extenders to locate and connect to the computer." category="recommended" defaultSelected="true" runOnOs="1">
+        <action>
+          <!-- Powershell Set-Service 'Mcx2Svc' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>Mcx2Svc</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Microsoft iSCSI Initiator Service" description="Not leveraged in a VDI" category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'MSiSCSI' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>MSiSCSI</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Microsoft Software Shadow Copy Provider" description="Leveraged by Windows Backup and System Restore." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'swprv' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>swprv</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Offline Files" description="Disable Offline Files" category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'CscService' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>CscService</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Reports and Solutions Control Panel Support" description="Provides support for viewing, sending and deletion of system-level problem reports for the Problem Reports and Solutions control panel." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'wercplsupport' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>wercplsupport</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Secure Socket Tunneling Protocol Service" description="VPN tunneling service.  Not likely leveraged in a VDI environment." category="mandatory" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'SstpSvc' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>SstpSvc</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="SSDP Discovery" description="Disable SSDP Discovery" category="mandatory" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'SSDPSRV' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>SSDPSRV</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Superfetch" description="Service is leveraged to optimize loading of applications over time.  In a non persistent or commodity based VDI environment this service may impact performance.  Depends on use and organization." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'SysMain' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>SysMain</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Themes" description="Disable if you want to run &quot;Classic&quot; GUI" category="optional" defaultSelected="false" runOnOs="1">
+        <action>
+          <!-- Powershell Set-Service 'Themes' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>Themes</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Universal PnP Host Service" description="Dependent on the SSDP Service." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'upnphost' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>upnphost</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Volume Shadow Copy Service" description="Used for System Restore and Backup Operations. (VMware product compatibility: Do not disable if Persona Management is in use.)" category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'VSS' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>VSS</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Backup" description="Windows Backup service used by System Restore and Windows Backups." category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'SDRSVC' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>SDRSVC</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Defender Service" description="Windows Defender can be optionally disabled in a VDI environment especially for non persistent VMs where data will be purged.  A scheduled task has also been marked to disable below." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'WinDefend' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>WinDefend</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Error Reporting Service" description="Error reporting services leveraged by Applications when they crash to send reports to Microsoft.  If using DER within VDI consider alternate configuration." category="recommended" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'WerSvc' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>WerSvc</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Firewall" description="Recommended to customize instead of disable the firewall." category="recommended" defaultSelected="false">
+        <action>
+          <!-- Powershell Set-Service 'MpsSvc' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>MpsSvc</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Media Center Network Sharing Service" description="Used by Media Center" category="recommended" defaultSelected="true" runOnOs="1">
+        <action>
+          <!-- Powershell Set-Service 'WMPNetworkSvc' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>WMPNetworkSvc</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Media Center Receiver Service" description="Media Center Service Related" category="recommended" defaultSelected="true" runOnOs="1">
+        <action>
+          <!-- Powershell Set-Service 'ehRecvr' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>ehRecvr</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Media Center Scheduler Service" description="Media Center Service Related" category="optional" defaultSelected="true" runOnOs="1">
+        <action>
+          <!-- Powershell Set-Service 'ehSched' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>ehSched</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Search" description="If you do a lot of searching on a VM, do not disable this service." category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'WSearch' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>WSearch</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Update" description="If this is a non persistent VM, Windows Update should be handled differently via standard image maintenance practices." category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'wuauserv' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>wuauserv</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="WLAN AutoConfig" description="Wireless LAN Configuration - N/A for VDI environments." category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'Wlansvc' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>Wlansvc</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+      <step name="WWAN AutoConfig" description="Service related to Mobile Broadband Devices" category="optional" defaultSelected="true">
+        <action>
+          <!-- Powershell Set-Service 'WwanSvc' -startuptype "disabled" -->
+          <type>Service</type>
+          <params>
+            <serviceName>WwanSvc</serviceName>
+            <startMode>DISABLED</startMode>
+          </params>
+        </action>
+      </step>
+    </group>
+    <group name="Sound Scheme" description="Set the Sound Scheme to No Sounds.">
+      <step name="Asterisk Sound" description="Set Asterisk sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemAsterisk\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Close Program Sound" description="Set Close Program sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\Close\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\Close\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Critical Battery Alarm Sound" description="Set Critical Battery Alarm sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\CriticalBatteryAlarm\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Critical Stop Sound" description="Set Critical Stop sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemHand\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemHand\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Default Beep Sound" description="Set Default Beep sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\.Default\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\.Default\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Device Connect Sound" description="Set Device Connect sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\DeviceConnect\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\DeviceConnect\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Device Disconnect Sound" description="Set Device Disconnect sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\DeviceDisconnect\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Device Failed to Connect Sound" description="Set Device Failed to Connect sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\DeviceFail\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\DeviceFail\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Exclamation Sound" description="Set Exclamation sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemExclamation\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemExclamation\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Exit Windows Sound" description="Set Exit Windows sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemExit\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemExit\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Low Battery Alarm Sound" description="Set Low Battery Alarm sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\LowBatteryAlarm\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Maximize Sound" description="Set Maximize sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\Maximize\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\Maximize\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Menu Command Sound" description="Set Menu Command sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\MenuCommand\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\MenuCommand\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Menu Pop-up Sound" description="Set Menu Pop-up sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\MenuPopup\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\MenuPopup\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Minimize Sound" description="Set Minimize sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\Minimize\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\Minimize\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="New Fax Notification Sound" description="Set New Fax Notification sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\FaxBeep\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\FaxBeep\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="New Mail Notification Sound" description="Set New Mail Notification sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\MailBeep\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\MailBeep\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="No Sounds" description="Change Sound Scheme to No Sounds" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes" /t REG_SZ /d ".None" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data>.None</data>
+          </params>
+        </action>
+      </step>
+      <step name="Open Program Sound" description="Set Open Program sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\Open\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\Open\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Print Complete Sound" description="Set Print Complete sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\PrintComplete\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\PrintComplete\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Program Error Sound" description="Set Program Error sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\AppGPFault\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\AppGPFault\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Question Sound" description="Set Question sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemQuestion\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemQuestion\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Restore Down Sound" description="Set Restore Down sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\RestoreDown\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\RestoreDown\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Restore Up Sound" description="Set Restore Up sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\RestoreUp\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\RestoreUp\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Select Sound" description="Set Select sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\CCSelect\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\CCSelect\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Show Toolbar Band Sound" description="Set Show Toolbar Band sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\ShowBand\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\ShowBand\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="System Notification Sound" description="Set System Notification sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemNotification\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\SystemNotification\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Change Theme Sound" description="Set Windows Change Theme sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\ChangeTheme\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\ChangeTheme\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Explorer Blocked Pop-up Window Sound" description="Set Windows Explorer Blocked Pop-up Window sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\BlockedPopup\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Explorer Complete Navigation Sound" description="Set Windows Explorer Complete Navigation sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\ActivatingDocument\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Explorer Fax error Sound" description="Set Windows Explorer Fax error sound to none" category="recommended" defaultSelected="true" runOnOs="1">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\FaxError\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\FaxError\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Explorer Fax sent Sound" description="Set Windows Explorer Fax sent sound to none" category="recommended" defaultSelected="true" runOnOs="1">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\FaxSent\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\FaxSent\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Explorer Feed Discovered Sound" description="Set Windows Explorer Feed Discovered sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\FeedDiscovered\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Explorer Incoming call Sound" description="Set Windows Explorer Incoming call sound to none" category="recommended" defaultSelected="true" runOnOs="1">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\FaxLineRings\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\FaxLineRings\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Explorer Move Menu Item Sound" description="Set Windows Explorer Move Menu Item sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\MoveMenuItem\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Explorer Notification bar Sound" description="Set Windows Explorer Notification bar sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\SecurityBand\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\SecurityBand\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Explorer Search Provider Discovered Sound" description="Set Explorer Search Provider Discovered sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\SearchProviderDiscovered\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\SearchProviderDiscovered\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Explorer Start Navigation Sound" description="Set Windows Explorer Start Navigation sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\Navigating\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\Explorer\Navigating\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Logoff Sound" description="Set Windows Logoff sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\WindowsLogoff\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\WindowsLogoff\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Logon Sound" description="Set Windows Logon sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\WindowsLogon\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\WindowsLogon\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows Startup Sound" description="Disable play windows startup sound" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation" /v DisableStartupSound /t REG_DWORD /d 1 /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation</keyName>
+            <valueName>DisableStartupSound</valueName>
+            <type>REG_DWORD</type>
+            <data>1</data>
+          </params>
+        </action>
+      </step>
+      <step name="Windows User Account Control Sound" description="Set Windows User Account Control sound to none" category="recommended" defaultSelected="true">
+        <action>
+          <!-- reg ADD "HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\WindowsUAC\.Current" /t REG_SZ /d "" /f -->
+          <type>Registry</type>
+          <command>ADD</command>
+          <params>
+            <keyName>HKEY_CURRENT_USER\AppEvents\Schemes\Apps\.Default\WindowsUAC\.Current</keyName>
+            <valueName>(Default)</valueName>
+            <type>REG_SZ</type>
+            <data></data>
+          </params>
+        </action>
+      </step>
+    </group>
+  </group>
+</sequence>
