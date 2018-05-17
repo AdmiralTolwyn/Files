@@ -20,8 +20,6 @@ $tsenv = New-Object -COMObject Microsoft.SMS.TSEnvironment
 $logPath = $tsenv.Value("LogPath")
 $logFile = "$logPath\$($myInvocation.MyCommand).log"
 
-$NeedReboot = "NO"
-
 # Create Logfile
 Write-Output "Create Logfile" > $logFile
 
@@ -32,10 +30,9 @@ Function Logit($TextBlock1){
 }
 
 # Start Main Code Here
-
 $ScriptName = $MyInvocation.MyCommand
 $RunningFromFolder = $MyInvocation.MyCommand.Path | Split-Path -Parent 
-. Logit “Running from $RunningFromFolder”
+. Logit "Running from $RunningFromFolder"
 
 Import-Module netadapter
 
