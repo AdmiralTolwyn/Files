@@ -78,6 +78,9 @@ $cmdLine  = ' /Set:"' + $PSScriptRoot + '\HPEliteBook840G4.REPSET" /CurSetupPass
 "HP EliteBook 840 G5"{
 $cmdLine  = ' /Set:"' + $PSScriptRoot + '\HPEliteBook840G5.REPSET" /CurSetupPasswordFile:"' + $PSScriptRoot + '\password.bin"'
 }
+"HP Z440 Workstation"{
+$cmdLine  = ' /Set:"' + $PSScriptRoot + '\HPZ440Workstation.REPSET" /CurSetupPasswordFile:"' + $PSScriptRoot + '\msits.bin"'
+}
 Default
     {
         Write-Host "$Model is unsupported, exit" 
