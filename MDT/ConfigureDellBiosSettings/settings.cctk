@@ -1,0 +1,12 @@
+[cctk]
+bootorder=uefitype,uefi
+cpuxdsupport=enable
+embsataraid=ahci
+legacyorom=disable
+secureboot=enable
+tpm=on
+tpmactivation=activate
+tpmppidpo=enable
+tpmppipo=enable
+virtualization=enable
+vtfordirectio=on
