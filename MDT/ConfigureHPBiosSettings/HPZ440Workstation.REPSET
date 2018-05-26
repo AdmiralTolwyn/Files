@@ -1,0 +1,37 @@
+BIOSConfig 1.0
+;
+;     Originally created by BIOS Configuration Utility
+;     Version: 4.0.13.1
+;     Date="2017/04/10" Time="10:53:24" UTC="0"
+;
+;     Found 181 settings
+Configure Legacy Support and Secure Boot
+	Enable Legacy Support and Disable Secure Boot
+	*Disable Legacy Support and Enable Secure Boot
+	Disable Legacy Support and Disable Secure Boot
+TPM Device
+	Hidden
+	*Available
+TPM State
+	Disable
+	*Enable
+Legacy Boot Options
+	*Disable
+	Enable
+UEFI Boot Options
+	Disable
+	*Enable
+Configure Option ROM Launch Policy
+	All Legacy
+	*All UEFI
+	All UEFI Except Video
+SATA Controller Mode
+	IDE
+	*AHCI
+	RAID
+Virtualization Technology (VT-x)
+	Disable
+	*Enable
+Intel VT for Directed I/O (VT-d)
+	Disable
+	*Enable

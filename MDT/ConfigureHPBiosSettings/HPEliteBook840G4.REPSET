@@ -1,0 +1,37 @@
+BIOSConfig 1.0
+;
+;     Originally created by BIOS Configuration Utility
+;     Version: 4.0.13.1
+;     Date="2017/05/12" Time="14:04:41" UTC="0"
+;
+;     Found 164 settings
+;
+TPM Device
+	Hidden
+	*Available
+TPM State
+	Disable
+	*Enable
+TPM Activation Policy
+	F1 to Boot
+	Allow user to reject
+	*No prompts
+Legacy Boot Options
+	*Disable
+	Enable
+UEFI Boot Options
+	Disable
+	*Enable
+Configure Legacy Support and Secure Boot
+	Legacy Support Enable and Secure Boot Disable
+	*Legacy Support Disable and Secure Boot Enable
+	Legacy Support Disable and Secure Boot Disable
+Virtualization Technology (VTx)
+	Disable
+	*Enable
+Virtualization Technology for Directed I/O (VTd)
+	Disable
+	*Enable
+Active Management (AMT)
+	*Disable
+	Enable
