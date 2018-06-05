@@ -20,7 +20,6 @@ Changelog:	1.0.1 - Code cleanup
 # Determine where to do the logging 
 $tsenv = New-Object -COMObject Microsoft.SMS.TSEnvironment
 $logPath = $tsenv.Value("LogPath")
-$logPath = "c:\temp"
 $logFile = "$logPath\$($myInvocation.MyCommand).log"
 $ScriptName = $MyInvocation.MyCommand
 
