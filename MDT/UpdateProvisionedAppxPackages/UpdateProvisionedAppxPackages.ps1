@@ -3,11 +3,15 @@
 ************************************************************************************************************************
 
 Created:    2018-06-04
-Version:    1.0.0
+Version:    1.0.1
 
 Author:     Anton Romanyuk, Login Consultants Germany GmbH (C) 2018
 
 Purpose:    Update inbox apps in an offline environment
+
+Usage:		https://www.vacuumbreather.com/index.php/blog/item/74-localizing-inbox-apps-during-osd
+
+Changelog:	1.0.1 - Code cleanup
 
 ************************************************************************************************************************
 
@@ -16,6 +20,7 @@ Purpose:    Update inbox apps in an offline environment
 # Determine where to do the logging 
 $tsenv = New-Object -COMObject Microsoft.SMS.TSEnvironment
 $logPath = $tsenv.Value("LogPath")
+$logPath = "c:\temp"
 $logFile = "$logPath\$($myInvocation.MyCommand).log"
 $ScriptName = $MyInvocation.MyCommand
 
@@ -72,6 +77,28 @@ Function Get-AppxBundleList
 	
 }
 
+Function Update-AppxDependencies
+{
+	$AppxList = (Get-ChildItem -Path $AppxPath -Recurse) | where-object { $_.FullName -like "*.appx" }
+	. Logit "Prerequisites selected for update: $($AppxList.Count)"
+	
+	$AppxList = (Get-ChildItem -Path $AppxPath -Recurse) | where-object { $_.FullName -like "*.appx" }
+	
+	. Logit "Updating prerequisites..."
+	ForEach ($Appx in $AppxList)
+	{
+		. Logit "Installing package $($Appx.BaseName) from $($Appx.Directory) directory."
+		Try
+		{
+			Add-AppxProvisionedPackage -Online -PackagePath "$($Appx.FullName)" -SkipLicense
+		}
+		Catch
+		{
+			. Logit "Following exception occured during $($Appx.BaseName) package installation: $($_.Exception.Message -replace "`n", "." -replace "`r", ".")."
+		}
+	}
+}
+
 Function Update-AppxBundle
 {
 	[CmdletBinding()]
@@ -84,7 +111,6 @@ Function Update-AppxBundle
 	{
 		$AppxBundleList = (Get-ChildItem -Path $AppxPath -Recurse) | Where-Object { $_.FullName -like "*.appxbundle" }
 	}
-	
 	process
 	{
 		$AppxBundle = $_
@@ -138,22 +164,10 @@ Else
 {
 	$AppxPath = "$PSScriptRoot\x86fre"
 }
-$AppxList = (Get-ChildItem -Path $AppxPath -Recurse) | where-object { $_.FullName -like "*.appx" }
 
-. Logit "Installing prerequisites..."
-ForEach ($Appx in $AppxList)
-{
-	. Logit "Installing package $($Appx.BaseName) from $($Appx.Directory) directory."
-	Try
-	{
-		Add-AppxProvisionedPackage -Online -PackagePath "$($Appx.FullName)" -SkipLicense
-	}
-	Catch
-	{
-		. Logit "Following exception occured during $($Appx.BaseName) package installation: $($_.Exception.Message -replace "`n", "." -replace "`r", ".")."
-	}
-}
-
+# Update inbox apps dependencies
+Update-AppxDependencies
+# Update inbox apps
 Get-AppxBundleList | Update-AppxBundle
 
 # Reset app sideloading policy to default settings
