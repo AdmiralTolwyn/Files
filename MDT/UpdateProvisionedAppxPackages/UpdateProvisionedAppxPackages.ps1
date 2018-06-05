@@ -81,9 +81,7 @@ Function Update-AppxDependencies
 {
 	$AppxList = (Get-ChildItem -Path $AppxPath -Recurse) | where-object { $_.FullName -like "*.appx" }
 	. Logit "Prerequisites selected for update: $($AppxList.Count)"
-	
-	$AppxList = (Get-ChildItem -Path $AppxPath -Recurse) | where-object { $_.FullName -like "*.appx" }
-	
+		
 	. Logit "Updating prerequisites..."
 	ForEach ($Appx in $AppxList)
 	{
