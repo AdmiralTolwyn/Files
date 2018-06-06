@@ -2,9 +2,9 @@
 	.NOTES
 	===========================================================================
 	 Created with: 	SAPIEN Technologies, Inc., PowerShell Studio 2018 v5.5.152
-	 Created on:   	06.06.2018 16:00
+	 Created on:   	06.06.2018
 	 Created by:   	Anton Romanyuk
-	 Filename:     	ApplyWin10Otimizations
+	 Filename:     	ApplyWin10Otimizations.ps1
 	===========================================================================
 	.DESCRIPTION
 		Applies Windows 10 enterprise-oriented optimizations and privacy mitigations 
@@ -21,6 +21,7 @@ $DisableNewNetworkDialog = "true"
 $DisableServices = "true"
 $DisableSchTasks = "true"
 $ApplyPrivacyMitigations = "true" # Apply privacy mitigations
+$InstallLogonScript = "false"
 
 # Determine where to do the logging 
 Try
@@ -251,3 +252,21 @@ If ($ApplyPrivacyMitigations -eq "true")
 	New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection' -Name 'AllowTelemetry' -PropertyType DWORD -Value $TelemetryLevel -Force
 }
 
+# Logon script
+If ($InstallLogonScript -eq "true")
+{
+	. Logit "Copying Logon script to C:\Windows\Scripts"
+	If (!(Test-Path "C:\Windows\Scripts"))
+	{
+		New-Item "C:\Windows\Scripts" -ItemType Directory
+	}
+	Copy-Item -Path $PSScriptRoot\Logon.ps1 -Destination "C:\Windows\Scripts" -Force
+	# load default hive
+	Start-Process -FilePath "reg.exe" -ArgumentList "LOAD HKLM\DEFAULT C:\Users\Default\NTUSER.DAT"
+	# create RunOnce entries current / new user(s)
+	. Logit "Creating RunOnce entries..."
+	New-ItemProperty -Path "HKLM:\Default\Software\Microsoft\Windows\CurrentVersion\Runonce" -Name "Logon" -Value "Powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\Windows\Scripts\Logon.ps1"
+	New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Runonce" -Name "Logon" -Value "Powershell.exe -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\Windows\Scripts\Logon.ps1"
+	# unload default hive
+	Start-Process -FilePath "reg.exe" -ArgumentList "UNLOAD HKLM\DEFAULT"
+}
