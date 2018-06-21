@@ -63,7 +63,7 @@ Write-Host $log_tmp
 Write-Host "$($myInvocation.MyCommand) - Importing default BIOS settings"
 
 #Base64 encoded password. Initial password is set to Pa55w0rd
-$EncodedPassword = "UGE1NXcwcmQ="
+$EncodedPassword = "UABhADUANQB3ADAAcgBkAA=="
 $DecodedPassword = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($EncodedPassword))
 
 $cmdLine  = ' --setuppwd=' + $DecodedPassword
