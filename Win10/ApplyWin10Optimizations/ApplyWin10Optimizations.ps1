@@ -11,9 +11,9 @@
 #>
 
 # Configuration
-$EnableOneNote = "true" # Set OneNote file association to the desktop app
+$EnableOneNote = "false" # Set OneNote file association to the desktop app
 $OneNotePath = "C:\Program Files (x86)\Microsoft Office\Office16\ONENOTE.EXE" # Set path to OneNote.exe
-$EnableRDP = "true"
+$EnableRDP = "false"
 $DisableOneDrive = "false"
 $PreferIPv4OverIPv6 = "false"
 $DisableIEFirstRunWizard = "true"
