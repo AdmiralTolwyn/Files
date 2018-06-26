@@ -17,6 +17,7 @@ $EnableRDP = "false"
 $DisableOneDrive = "false"
 $PreferIPv4OverIPv6 = "false"
 $DisableIEFirstRunWizard = "true"
+$DisableEdgeIconCreation = "true"
 $DisableNewNetworkDialog = "true"
 $DisableServices = "true"
 $DisableSchTasks = "true"
@@ -104,6 +105,14 @@ If ($DisableIEFirstRunWizard -eq "true")
 	New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft' -Name 'Internet Explorer' -Force
 	New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer' -Name 'Main' -Force
 	New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Internet Explorer\Main' -Name DisableFirstRunCustomize -PropertyType DWORD -Value '1' -Force
+}
+
+
+If ($DisableEdgeIconCreation -eq "true")
+{
+	. Logit "Disabling Microsoft Edge desktop icon creation..."
+	New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -Name 'Explorer' -PropertyType DWORD -Value '1' -Force
+	New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -Name 'DisableEdgeDesktopShortcutCreation' -PropertyType DWORD -Value '1' -Force
 }
 
 # Disable New Network dialog box
