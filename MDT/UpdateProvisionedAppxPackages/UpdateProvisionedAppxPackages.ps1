@@ -3,7 +3,7 @@
 ************************************************************************************************************************
 
 Created:    2018-06-04
-Version:    1.0.1
+Version:    1.0.2
 
 Author:     Anton Romanyuk, Login Consultants Germany GmbH (C) 2018
 
@@ -12,7 +12,7 @@ Purpose:    Update inbox apps in an offline environment
 Usage:		https://www.vacuumbreather.com/index.php/blog/item/74-localizing-inbox-apps-during-osd
 
 Changelog:	1.0.1 - Code cleanup
-
+		1.0.2 - Baard Hermansen: Added variabel names for folders. Corrected erronous variable name. Uses Visual Studio Codes Format Document. 
 ************************************************************************************************************************
 
 #>
@@ -22,44 +22,40 @@ $tsenv = New-Object -COMObject Microsoft.SMS.TSEnvironment
 $logPath = $tsenv.Value("LogPath")
 $logFile = "$logPath\$($myInvocation.MyCommand).log"
 $ScriptName = $MyInvocation.MyCommand
+$appxFolderRoot64 = "<64>"
+$appxFolderRoot32 = "<32>"
 
 # Create Log folder
 $testPath = Test-Path $logPath
-If (!$testPath)
-{
+If (!$testPath) {
 	New-Item -ItemType Directory -Path $logPath
 }
 
 # Create Logfile
 Write-Output "$ScriptName - Create Logfile" > $logFile
 
-Function Logit($TextBlock1)
-{
+Function Logit($TextBlock1) {
 	$TimeDate = Get-Date
 	$OutPut = "$ScriptName - $TextBlock1 - $TimeDate"
 	Write-Output $OutPut >> $logFile
 }
 
-Function Get-AppxBundleList
-{
-	begin
-	{
+Function Get-AppxBundleList {
+	begin {
 		# Look for a appxbundle list
 		$AppxBundleXmlList = "$PSScriptRoot\$($ScriptName.Substring(0, $ScriptName.IndexOf("."))).xml"
-		if (Test-Path -Path $AppxBundleXmlList)
-		{
+		if (Test-Path -Path $AppxBundleXmlList) {
 			# Read the list
 			. Logit "Reading list of apps from $AppxBundleXmlList"
 			$AppxBundleList = Get-Content $AppxBundleXmlList
 		}
-		else
-		{
+		else {
 			$AppxBundleList = @()
 			
 			# Build appxbundle packages list if it does not exist in the script's folder
 			. Logit "Building list of appx bundles."
 			
-			(Get-ChildItem -Path $AppxPath -Recurse) | Where-Object { $_.FullName -like "*.appxbundle" } | % { $list += $_.BaseName.Substring(0, $_.BaseName.IndexOf("_")) }
+			(Get-ChildItem -Path $AppxPath -Recurse) | Where-Object { $_.FullName -like "*.appxbundle" } | ForEach-Object { $AppxBundleList += $_.BaseName.Substring(0, $_.BaseName.IndexOf("_")) }
 			
 			$AppxBundleXmlList = "$logPath\$($ScriptName.Substring(0, $ScriptName.IndexOf("."))).xml"
 			$AppxBundleList | Set-Content $AppxBundleXmlList
@@ -69,74 +65,60 @@ Function Get-AppxBundleList
 		. Logit "Apps selected for update: $($AppxBundleList.Count)"
 	}
 	
-	process
-	{
+	process {
 		$AppxBundleList
 	}
 	
 }
 
-Function Update-AppxDependencies
-{
+Function Update-AppxDependencies {
 	$AppxList = (Get-ChildItem -Path $AppxPath -Recurse) | where-object { $_.FullName -like "*.appx" }
 	. Logit "Prerequisites selected for update: $($AppxList.Count)"
 	
 	. Logit "Updating prerequisites..."
-	ForEach ($Appx in $AppxList)
-	{
+	ForEach ($Appx in $AppxList) {
 		. Logit "Installing package $($Appx.BaseName) from $($Appx.Directory) directory."
-		Try
-		{
+		Try {
 			Add-AppxProvisionedPackage -Online -PackagePath "$($Appx.FullName)" -SkipLicense
 		}
-		Catch
-		{
+		Catch {
 			. Logit "Following exception occured during $($Appx.BaseName) package installation: $($_.Exception.Message -replace "`n", "." -replace "`r", ".")."
 		}
 	}
 }
 
-Function Update-AppxBundle
-{
+Function Update-AppxBundle {
 	[CmdletBinding()]
 	param (
 		[parameter(Mandatory = $true, ValueFromPipeline = $true)]
 		[string]$AppxBundleName
 	)
 	
-	begin
-	{
+	begin {
 		$AppxBundleList = (Get-ChildItem -Path $AppxPath -Recurse) | Where-Object { $_.FullName -like "*.appxbundle" }
 	}
-	process
-	{
+	process {
 		$AppxBundle = $_
 		
 		# Update the provisioned package
 		. Logit "Updating provisioned package $_"
-		$current = $AppxBundleList | ? { $_.BaseName.StartsWith($AppxBundle) }
-		if ($current)
-		{
+		$current = $AppxBundleList | Where-Object { $_.BaseName.StartsWith($AppxBundle) }
+		if ($current) {
 			# Verify we can access the license file
 			$LicPath = $current.DirectoryName + "\" + $current.BaseName + ".xml"
-			If (Test-Path $LicPath)
-			{
-				Try
-				{
+			If (Test-Path $LicPath) {
+				Try {
 					Add-AppxProvisionedPackage -Online -PackagePath "$($current.FullName)" -LicensePath $LicPath
 				}
-				Catch
-				{
+				Catch {
 					. Logit "Following exception occured during $($current.BaseName) package installation: $($_.Exception.Message -replace "`n", "." -replace "`r", ".")."
 				}
 			}
-			Else
-			{
+			Else {
 				. Logit "Unable to find corresponding license file $LicPath"
 			}
 		}
-		Else
-		{
+		Else {
 			. Logit "Unable to find update package $_"
 		}
 	}
@@ -152,14 +134,12 @@ Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\Appx" -Name "A
 
 . Logit "Build the base command line"
 # Determine where to check
-If ((gwmi win32_operatingsystem | select osarchitecture).osarchitecture -eq "64-bit")
-{
+If ((Get-WmiObject win32_operatingsystem | Select-Object osarchitecture).osarchitecture -eq "64-bit") {
 	#64 bit apps
-	$AppxPath = "$PSScriptRoot\amd64fre"
+	$AppxPath = Join-Path -Path $PSScriptRoot -ChildPath $appxFolderRoot64
 }
-Else
-{
-	$AppxPath = "$PSScriptRoot\x86fre"
+Else {
+	$AppxPath = Join-Path -Path $PSScriptRoot -ChildPath $appxFolderRoot32
 }
 
 # Update inbox apps dependencies
