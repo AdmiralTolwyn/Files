@@ -42,7 +42,7 @@ Function Logit($TextBlock1)
 
 Function Update-AppxDependencies
 {
-	$AppxList = (Get-ChildItem -Path $AppxPath -Recurse) | where-object { $_.FullName -like "*.appx" }
+	$AppxList = (Get-ChildItem -Path $AppxPath -Recurse) | where-object { $_.FullName -like "*.appx"}
 	. Logit "Prerequisites selected for update: $($AppxList.Count)"
 	
 	. Logit "Updating prerequisites..."
