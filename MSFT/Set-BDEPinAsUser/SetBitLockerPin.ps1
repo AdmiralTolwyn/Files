@@ -209,7 +209,10 @@ Function Invoke-SetBitLockerPin
     return $true
 }
 
-#Description: Remove Tpm protector if both Tpm and TpmPin are present
+#Description: Remove Tpm protector if both Tpm and TpmPin are present 
+#             (this is a workaround for a potential issue which can occur
+#             when the device is being encrypted with the Tpm protector 
+#             only during ESP)
 #Function Data:
 #   Name:           Invoke-TpmProtectorCleanup
 #   Parameters:     none
@@ -285,6 +288,7 @@ Write-Log -Level INFO -Message "[INFO] Current Operating System"
 Write-Log -Level INFO -Message "[INFO] -> Version  : $($OSVersion)"
 Write-Log -Level INFO -Message "[INFO] -> Build    : $($OSBuildNumber)"
 
+Set-Location $PSScriptRoot
 # Set BDE pre-boot PIN
 Invoke-SetBitLockerPin
 # Remove Tpm protector if both Tpm and TpmPin are present
