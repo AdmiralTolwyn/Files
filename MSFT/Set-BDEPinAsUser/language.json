@@ -18,17 +18,17 @@
     "de-DE": {
         "characters": "Zeichen",
         "numbers": "Nummern",
-        "choosePin": "Wähle eine PIN, die {0}-20 {1} lang ist.",
-        "PinIsNotEqualNotLongEnough": "Die PIN ist nicht lang genug.",
-        "PinIsNotEqualOnlyNumbers": "Nur Nummern sind erlaubt.",
-        "PinIsNotEqualSettingNow": "...lege eine gültige PIN fest...",
-        "PinIsNotEqual": "Die PINs stimmen nicht überein.",
-        "PinIsTooSimple": "Die PIN ist zu einfach.",
+        "choosePin": "Bitte wählen Sie eine PIN, die {0}-20 {1} lang ist.",
+        "PinIsNotEqualNotLongEnough": "Die PIN ist leider nicht lang genug.",
+        "PinIsNotEqualOnlyNumbers": "Es sind nur Nummern erlaubt.",
+        "PinIsNotEqualSettingNow": "...ich lege jetzt eine gültige PIN fest...",
+        "PinIsNotEqual": "Die eingegebenen PINs stimmen leider nicht überein.",
+        "PinIsTooSimple": "Die gewählte PIN ist leider zu einfach.",
         "BitLockerStartupPIN": "BitLocker Start-PIN",
-        "RetypePIN": "Bestätige deine PIN",
-        "NewPIN": "Gib eine neue PIN ein",
+        "RetypePIN": "Bitte bestätigen Sie Ihre PIN",
+        "NewPIN": "Bitte geben Sie eine neue PIN ein",
         "buttonCancel": "&Abbrechen",
         "buttonSetPin": "&PIN festlegen",
-        "labelSetBLStartupPin": "Lege BitLocker Start-PIN fest"
+        "labelSetBLStartupPin": "Bitte legen Sie die BitLocker Start-PIN fest"
     }
 }

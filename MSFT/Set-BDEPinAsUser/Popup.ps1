@@ -221,7 +221,7 @@ $formBitLockerStartupPIN.Controls.Add($textboxNewPin)
 $formBitLockerStartupPIN.AutoScaleDimensions = '8, 17'
 $formBitLockerStartupPIN.AutoScaleMode = 'Font'
 $formBitLockerStartupPIN.BackColor = 'Window'
-$formBitLockerStartupPIN.ClientSize = '500, 271'
+$formBitLockerStartupPIN.ClientSize = '530, 271'
 $formBitLockerStartupPIN.FormBorderStyle = 'FixedDialog'
 $formBitLockerStartupPIN.Icon = [System.Convert]::FromBase64String('
 AAABAA0AMDAQAAEABABoBgAA1gAAACAgEAABAAQA6AIAAD4HAAAYGBAAAQAEAOgBAAAmCgAAEBAQ
@@ -1856,7 +1856,7 @@ $labelSetBLtartupPin.TabIndex = 2
 $labelSetBLtartupPin.Text = $language.$uiLang.labelSetBLStartupPin #'Set BitLocker startup PIN'
 
 # textboxRetypedPin
-$textboxRetypedPin.Location = '240, 143'
+$textboxRetypedPin.Location = '270, 143'
 $textboxRetypedPin.Margin = '4, 4, 4, 4'
 $textboxRetypedPin.Name = 'textboxRetypedPin'
 $textboxRetypedPin.Size = '244, 23'
@@ -1865,7 +1865,7 @@ $textboxRetypedPin.UseSystemPasswordChar = $True
 $textboxRetypedPin.add_KeyUp($textboxRetypedPin_KeyUp)
 
 # textboxNewPin
-$textboxNewPin.Location = '240, 102'
+$textboxNewPin.Location = '270, 102'
 $textboxNewPin.Margin = '4, 4, 4, 4'
 $textboxNewPin.Name = 'textboxNewPin'
 $textboxNewPin.Size = '244, 23'
