@@ -136,9 +136,7 @@ Function Invoke-SetBitLockerPin
 		Write-Log -Level INFO -Message "[INFO] Starting ServiceUI.exe"
         .\ServiceUI.exe -process:Explorer.exe "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -WindowStyle Hidden -Ex bypass -file "$PSScriptRoot\Popup.ps1"
         $exitCode = $LASTEXITCODE
-
-        Write-Log -Level INFO -Message "[INFO] Exit code of ServiceUI: $exitCode"
-
+        
         #ASR rules can block the write access to public documents so we use a writeable path for users and system
         #check with sysinternals tool: accesschk.exe users -wus c:\windows\*
         #"c:\windows\tracing" should be fine as temp storage
@@ -148,6 +146,8 @@ Function Invoke-SetBitLockerPin
         #$pathPINFile = $(Join-Path -Path $([Environment]::GetFolderPath("CommonDocuments")) -ChildPath "168ba6df825678e4da1a.tmp")
         Write-Log -Level INFO -Message "[INFO] Setting var pathPINFile to $pathPINFile"
 
+        Write-Log -Level INFO -Message "[INFO] Exit code of ServiceUI: $exitCode"
+    
         If ($exitCode -eq 0 -And (Test-Path -Path $pathPINFile)) { 
             Write-Log -Level INFO -Message "[INFO] Found a PIN file at $pathPINFile"
             $encodedText = Get-Content -Path $pathPINFile 
@@ -171,24 +171,42 @@ Function Invoke-SetBitLockerPin
                 try {
 					Write-Log -Level INFO -Message "[INFO] Adding BitLocker key protector with PIN"
                     Add-BitLockerKeyProtector -MountPoint $env:SystemDrive -Pin $(ConvertTo-SecureString $PIN -AsPlainText -Force) -TpmAndPinProtector
-					Write-Log -Level INFO -Message "[INFO] BitLocker key protector added successfully"
+					#Write-Log -Level INFO -Message "[INFO] BitLocker key protector added successfully"
 																									  
                 } catch {
                     Write-Log -Level ERROR -Message "[ERROR] Failed to add BitLocker key protector: $($_.Exception.Message)"
                 }
             }
         }
+        else
+        {
+            Write-Log -Level ERROR -Message "[ERROR] Unable to locate $pathPINFile"
+
+            #Error Handling
+            $ExitCode = $ERROR_USER_CANCELLED
+            Write-Log -Level INFO -Message "[INFO] -> Exit code: $ExitCode"		
+            exit $ExitCode
+        }
+        
     } catch {
         Write-Error "[ERROR] $($_.Exception.Message)"
+        Write-Log -Level INFO -Message "[INFO] -> Invoke-SetBitLockerPin function returned non-zero exit code. Remapping to ERROR_UNKNOWN"	
+        
+        #Error Handling
+        $ExitCode = $ERROR_UNKNOWN 
+
         #Cleanup
-        Remove-Item -Path $pathPINFile -Force
-        return [boolean]$false
+        Write-Log -Level INFO -Message "[INFO] Running cleanup on $pathPINFile"
+        Remove-Item -Path $pathPINFile -Force -ErrorAction SilentlyContinue
+        Write-Log -Level INFO -Message "[INFO] -> Exit code: $ExitCode"													
+        exit $ExitCode
     } 
     
     #Cleanup
+    Write-Log -Level INFO -Message "[INFO] Running cleanup against $pathPINFile"
     Remove-Item -Path $pathPINFile -Force -ErrorAction SilentlyContinue
     #Exit Success
-    return [boolean]$true
+    return $true
 }
 
 ##################################################################################################################
@@ -204,6 +222,7 @@ $LogFilePath             = [System.Environment]::ExpandEnvironmentVariables("%SY
 #Error and Exit Codes
 $ERROR_SUCCESS                               = 0
 $ERROR_UNKNOWN                               = 1
+$ERROR_USER_CANCELLED                        = 1602
 
 ##################################################################################################################
 ####                                 P R O G R A M    S E Q U E N C E   C O D E                               ####
@@ -220,6 +239,9 @@ Write-Log -Level INFO -Message "################################################
 Write-Log -Level INFO -Message "[INFO] Configuration Parameters"
 Write-Log -Level INFO -Message "[INFO] -> Debug Mode                : $($DebugMode)"
 Write-Log -Level INFO -Message "[INFO] -> Log File Path             : $($LogFilePath)"
+Write-Log -Level INFO -Message "[INFO] -> ERROR_SUCCESS             : $($ERROR_SUCCESS)"
+Write-Log -Level INFO -Message "[INFO] -> ERROR_UNKNOWN             : $($ERROR_UNKNOWN)"
+Write-Log -Level INFO -Message "[INFO] -> ERROR_USER_CANCELLED      : $($ERROR_USER_CANCELLED)"
 
 #Get Details of OS
 $OSVersion = (Get-CimInstance Win32_OperatingSystem).Version
@@ -228,15 +250,7 @@ Write-Log -Level INFO -Message "[INFO] Current Operating System"
 Write-Log -Level INFO -Message "[INFO] -> Version  : $($OSVersion)"
 Write-Log -Level INFO -Message "[INFO] -> Build    : $($OSBuildNumber)"
 
-#Internal Error Handling
-
-if(!(Invoke-SetBitLockerPin))
-{
-    #Error Handling
-    $ExitCode = $ERROR_UNKNOWN 
-																			
-    throw "Aborting setting BitLocker PIN"
-}
+Invoke-SetBitLockerPin
 
 ##################################################################################################################
 ####                                           P R O G R A M   E N D                                           ###

@@ -1,18 +1,33 @@
-﻿# Author: Oliver Kieselbach (oliverkieselbach.com)
-# Date: 08/01/2019
-# Description: Creates a Windows Forms Dialog for BitLocker PIN entry.
-# - 10/21/2019 changed PIN handover
-# - 05/26/2020 added PIN length zero check
-# - 07/13/2020 added Enhanced PIN check and advise
-# - 05/21/2021 added more enhanced pin logic check if numbers only entered
-# - 09/30/2021 changed PIN handover to AES encryption/decryption via DPAPI and shared key
-#              added simple PIN check for incrementing and decrementing numbers e.g. 123456 and 654321
-#              language support (see language.json), default is always en-US
-#              changed temp storage location and temp file name
- 
-# The script is provided "AS IS" with no warranties.
+﻿<#=========================================================================================
+Files:     SetBitLockerPin.ps1
 
-# https://docs.microsoft.com/en-us/powershell/scripting/samples/creating-a-custom-input-box?view=powershell-6
+Summary:
+This script is intended to set BDE PIN in standard user context.
+
+Official verison of Oliver Kieselbach
+https://github.com/okieselbach/Intune/blob/master/Win32/SetBitLockerPin
+
+Version	    Date		Author				Description
+-------------------------------------------------------------------------------------------
+    1.0     2023-10-16	Anton Romanyuk		Script created
+
+-------------------------------------------------------------------------------------------
+DISCLAIMER:
+
+This Sample Code is provided for the purpose of illustration only and is not intended to 
+be used in a production environment.
+
+THIS SAMPLE CODE AND ANY RELATED INFORMATION ARE PROVIDED AS IS
+WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
+
+ALL CODE MUST BE TESTED BY ANY RECIPIENTS.
+
+=========================================================================================
+EXAMPLE: 
+powershell.exe -file SetBitLockerPin.ps1
+=========================================================================================#>
+
 
 function Test-IncrementNumber
 {
@@ -149,8 +164,8 @@ $buttonSetPIN_Click = {
 		$labelPINIsNotEqual.Text = $language.$uiLang.PinIsNotEqualSettingNow #"Setting valid PIN now..."
 		$labelPINIsNotEqual.Visible = $true
 		
-		$formBitLockerStartupPIN.Close()
 		[Environment]::ExitCode = 0
+		$formBitLockerStartupPIN.Close()
 	}
 	else {
 		$labelPINIsNotEqual.ForeColor = 'Red'
@@ -163,9 +178,9 @@ $buttonCancel_Click = {
 	$labelPINIsNotEqual.Visible = $false
 	$textboxNewPin.Text = ""
 	$textboxRetypedPin.Text = ""
-
-	$formBitLockerStartupPIN.Close()
+	
 	[Environment]::ExitCode = 0
+	$formBitLockerStartupPIN.Close()
 }
 
 $textboxRetypedPin_KeyUp = [System.Windows.Forms.KeyEventHandler]{
@@ -206,7 +221,7 @@ $formBitLockerStartupPIN.Controls.Add($textboxNewPin)
 $formBitLockerStartupPIN.AutoScaleDimensions = '8, 17'
 $formBitLockerStartupPIN.AutoScaleMode = 'Font'
 $formBitLockerStartupPIN.BackColor = 'Window'
-$formBitLockerStartupPIN.ClientSize = '445, 271'
+$formBitLockerStartupPIN.ClientSize = '500, 271'
 $formBitLockerStartupPIN.FormBorderStyle = 'FixedDialog'
 $formBitLockerStartupPIN.Icon = [System.Convert]::FromBase64String('
 AAABAA0AMDAQAAEABABoBgAA1gAAACAgEAABAAQA6AIAAD4HAAAYGBAAAQAEAOgBAAAmCgAAEBAQ
@@ -1804,14 +1819,14 @@ $panelBottom.BackColor = 'Control'
 $panelBottom.Location = '-1, 209'
 $panelBottom.Margin = '4, 4, 4, 4'
 $panelBottom.Name = 'panelBottom'
-$panelBottom.Size = '448, 63'
+$panelBottom.Size = '500, 63'
 $panelBottom.TabIndex = 5
 
 # buttonCancel
-$buttonCancel.Location = '333, 17'
+$buttonCancel.Location = '357, 15'
 $buttonCancel.Margin = '4, 4, 4, 4'
 $buttonCancel.Name = 'buttonCancel'
-$buttonCancel.Size = '100, 30'
+$buttonCancel.Size = '130, 35'
 $buttonCancel.TabIndex = 4
 $buttonCancel.Text = $language.$uiLang.buttonCancel #'&Cancel'
 $buttonCancel.UseCompatibleTextRendering = $True
@@ -1819,10 +1834,10 @@ $buttonCancel.UseVisualStyleBackColor = $True
 $buttonCancel.add_Click($buttonCancel_Click)
 
 # buttonSetPIN
-$buttonSetPIN.Location = '225, 17'
+$buttonSetPIN.Location = '220, 15'
 $buttonSetPIN.Margin = '4, 4, 4, 4'
 $buttonSetPIN.Name = 'buttonSetPIN'
-$buttonSetPIN.Size = '100, 30'
+$buttonSetPIN.Size = '130, 35'
 $buttonSetPIN.TabIndex = 3
 $buttonSetPIN.Text = $language.$uiLang.buttonSetPin #'&Set PIN'
 $buttonSetPIN.UseCompatibleTextRendering = $True
@@ -1841,19 +1856,19 @@ $labelSetBLtartupPin.TabIndex = 2
 $labelSetBLtartupPin.Text = $language.$uiLang.labelSetBLStartupPin #'Set BitLocker startup PIN'
 
 # textboxRetypedPin
-$textboxRetypedPin.Location = '140, 143'
+$textboxRetypedPin.Location = '240, 143'
 $textboxRetypedPin.Margin = '4, 4, 4, 4'
 $textboxRetypedPin.Name = 'textboxRetypedPin'
-$textboxRetypedPin.Size = '214, 23'
+$textboxRetypedPin.Size = '244, 23'
 $textboxRetypedPin.TabIndex = 1
 $textboxRetypedPin.UseSystemPasswordChar = $True
 $textboxRetypedPin.add_KeyUp($textboxRetypedPin_KeyUp)
 
 # textboxNewPin
-$textboxNewPin.Location = '140, 102'
+$textboxNewPin.Location = '240, 102'
 $textboxNewPin.Margin = '4, 4, 4, 4'
 $textboxNewPin.Name = 'textboxNewPin'
-$textboxNewPin.Size = '214, 23'
+$textboxNewPin.Size = '244, 23'
 $textboxNewPin.TabIndex = 0
 $textboxNewPin.UseSystemPasswordChar = $True
 $textboxNewPin.add_KeyUp($textboxNewPin_KeyUp)
