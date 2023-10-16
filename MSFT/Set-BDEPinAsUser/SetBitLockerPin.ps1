@@ -209,6 +209,41 @@ Function Invoke-SetBitLockerPin
     return $true
 }
 
+#Description: Remove Tpm protector if both Tpm and TpmPin are present
+#Function Data:
+#   Name:           Invoke-TpmProtectorCleanup
+#   Parameters:     none
+#   Returns:        Boolean
+#                   True  = Success
+#                   False = Failure
+Function Invoke-TpmProtectorCleanup {
+    try {
+        # Get BitLocker volume information
+        $volume = Get-BitLockerVolume -MountPoint "C:"
+        Write-Log -Level INFO -Message "[INFO] BitLocker volume information retrieved."
+
+        # Check if both TPM and TpmPin protectors are added
+        if (($volume.KeyProtector | Where-Object { $_.KeyProtectorType -eq 'Tpm' }) -and ($volume.KeyProtector | Where-Object { $_.KeyProtectorType -eq 'TpmPin' })) {
+            Write-Log -Level INFO -Message "[INFO] TPM and TpmPin protectors found."
+
+            # Get the ID of the TPM protector
+            $tpmProtectorId = ($volume.KeyProtector | Where-Object { $_.KeyProtectorType -eq 'Tpm' }).KeyProtectorID
+
+            # Remove the TPM protector
+            Remove-BitLockerKeyProtector -MountPoint "C:" -KeyProtectorId $tpmProtectorId
+            Write-Log -Level INFO -Message "[INFO] TPM protector removed."
+        }
+        else {
+            Write-Log -Level INFO -Message "[INFO] TPM or TpmPin protectors not found."
+        }
+    }
+    catch {
+        # Write the error to the log
+        Write-Log -Level ERROR -Message "[INFO]  $($_.Exception.Message)"
+    }
+}
+
+
 ##################################################################################################################
 ####                                    P R O G R A M    P A R A M E T E R S                                  ####
 ##################################################################################################################
@@ -250,7 +285,10 @@ Write-Log -Level INFO -Message "[INFO] Current Operating System"
 Write-Log -Level INFO -Message "[INFO] -> Version  : $($OSVersion)"
 Write-Log -Level INFO -Message "[INFO] -> Build    : $($OSBuildNumber)"
 
+# Set BDE pre-boot PIN
 Invoke-SetBitLockerPin
+# Remove Tpm protector if both Tpm and TpmPin are present
+Invoke-TpmProtectorCleanup
 
 ##################################################################################################################
 ####                                           P R O G R A M   E N D                                           ###
