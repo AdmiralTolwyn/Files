@@ -221,7 +221,7 @@ $formBitLockerStartupPIN.Controls.Add($textboxNewPin)
 $formBitLockerStartupPIN.AutoScaleDimensions = '8, 17'
 $formBitLockerStartupPIN.AutoScaleMode = 'Font'
 $formBitLockerStartupPIN.BackColor = 'Window'
-$formBitLockerStartupPIN.ClientSize = '530, 271'
+$formBitLockerStartupPIN.ClientSize = '550, 271'
 $formBitLockerStartupPIN.FormBorderStyle = 'FixedDialog'
 $formBitLockerStartupPIN.Icon = [System.Convert]::FromBase64String('
 AAABAA0AMDAQAAEABABoBgAA1gAAACAgEAABAAQA6AIAAD4HAAAYGBAAAQAEAOgBAAAmCgAAEBAQ
@@ -1819,11 +1819,11 @@ $panelBottom.BackColor = 'Control'
 $panelBottom.Location = '-1, 209'
 $panelBottom.Margin = '4, 4, 4, 4'
 $panelBottom.Name = 'panelBottom'
-$panelBottom.Size = '500, 63'
+$panelBottom.Size = '550, 63'
 $panelBottom.TabIndex = 5
 
 # buttonCancel
-$buttonCancel.Location = '357, 15'
+$buttonCancel.Location = '387, 15'
 $buttonCancel.Margin = '4, 4, 4, 4'
 $buttonCancel.Name = 'buttonCancel'
 $buttonCancel.Size = '130, 35'
@@ -1834,7 +1834,7 @@ $buttonCancel.UseVisualStyleBackColor = $True
 $buttonCancel.add_Click($buttonCancel_Click)
 
 # buttonSetPIN
-$buttonSetPIN.Location = '220, 15'
+$buttonSetPIN.Location = '240, 15'
 $buttonSetPIN.Margin = '4, 4, 4, 4'
 $buttonSetPIN.Name = 'buttonSetPIN'
 $buttonSetPIN.Size = '130, 35'
